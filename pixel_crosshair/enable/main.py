@@ -4,6 +4,8 @@ from typing import Annotated
 import typer
 from typer import Option
 
+from pixel_crosshair.disable.terminate import terminate_existing
+
 from .overlay import start_overlay
 
 app = typer.Typer()
@@ -35,8 +37,12 @@ def enable(
         help='crosshair color alpha value',
     )] = 1.0,
 ) -> None:
+    # disable existing instance
+    terminate_existing()
+
     # convert color format to floats
     r, g, b = [int(color[i:i+2], 16)/255.0 for i in (1, 3, 5)]
     rgba = (r, g, b, alpha, )
+
     # start overlay
     start_overlay(rgba)
