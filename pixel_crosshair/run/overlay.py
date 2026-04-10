@@ -1,10 +1,7 @@
-import multiprocessing
-import os
-
 RGBA = tuple[float, float, float, float]
 
 
-def _overlay(rgba: RGBA) -> None:
+def overlay(rgba: RGBA) -> None:
     # For GTK4 Layer Shell to get linked before libwayland-client we must explicitly load it before importing with gi
     # ref: https://github.com/wmww/gtk4-layer-shell/blob/main/examples/simple-example.py
     from ctypes import CDLL
@@ -75,11 +72,3 @@ def _overlay(rgba: RGBA) -> None:
     app = Gtk.Application(application_id='com.user.crosshair')
     app.connect('activate', on_activate)
     app.run(None)
-
-
-def start_overlay(rgba: RGBA) -> None:
-    # spwan new process and disown
-    ctx = multiprocessing.get_context('spawn')
-    proc = ctx.Process(target=_overlay, args=(rgba,), daemon=False)
-    proc.start()
-    os._exit(0)
