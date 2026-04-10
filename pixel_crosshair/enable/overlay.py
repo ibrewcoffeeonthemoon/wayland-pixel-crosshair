@@ -1,10 +1,10 @@
 import multiprocessing
 import os
 
-RGBA_Color = tuple[float, float, float, float]
+RGBA = tuple[float, float, float, float]
 
 
-def _overlay(rgba_floats: RGBA_Color) -> None:
+def _overlay(rgba: RGBA) -> None:
     # For GTK4 Layer Shell to get linked before libwayland-client we must explicitly load it before importing with gi
     # ref: https://github.com/wmww/gtk4-layer-shell/blob/main/examples/simple-example.py
     from ctypes import CDLL
@@ -54,7 +54,7 @@ def _overlay(rgba_floats: RGBA_Color) -> None:
         ) -> None:
             # calibrate the center using https://centerofmyscreen.com/
             cr.arc(width/2, height/2 - 14, 2, 0, 2 * 3.14159)
-            cr.set_source_rgba(*rgba_floats)
+            cr.set_source_rgba(*rgba)
             cr.fill()
         draw_area = Gtk.DrawingArea()
         draw_area.set_draw_func(draw_func)
@@ -77,11 +77,9 @@ def _overlay(rgba_floats: RGBA_Color) -> None:
     app.run(None)
 
 
-def start_overlay(rgba_hex: str) -> None:
-    # convert color format
-    rgba_float = tuple(int(rgba_hex[i:i+2], 16)/255.0 for i in (1, 3, 5, 7))
+def start_overlay(rgba: RGBA) -> None:
     # spwan new process and disown
     ctx = multiprocessing.get_context('spawn')
-    proc = ctx.Process(target=_overlay, args=(rgba_float,), daemon=False)
+    proc = ctx.Process(target=_overlay, args=(rgba,), daemon=False)
     proc.start()
     os._exit(0)
