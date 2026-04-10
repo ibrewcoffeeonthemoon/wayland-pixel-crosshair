@@ -2,6 +2,7 @@ import importlib.metadata as meta
 
 import typer
 
+from .disable import app as disable
 from .enable import app as enable
 
 NAME = 'wayland-pixel-crosshair'
@@ -20,3 +21,4 @@ def version() -> None:
 
 
 app.add_typer(enable)
+app.add_typer(disable)
