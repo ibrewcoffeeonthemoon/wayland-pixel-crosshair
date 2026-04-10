@@ -4,6 +4,7 @@ import typer
 
 from .disable import app as disable
 from .enable import app as enable
+from .run import app as run
 
 NAME = 'wayland-pixel-crosshair'
 
@@ -22,3 +23,4 @@ def version() -> None:
 
 app.add_typer(enable)
 app.add_typer(disable)
+app.add_typer(run)
