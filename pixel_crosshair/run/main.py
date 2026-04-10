@@ -4,7 +4,7 @@ from typing import Annotated
 import typer
 from typer import Option
 
-from pixel_crosshair.enable.overlay import overlay
+from .overlay import overlay
 
 app = typer.Typer()
 
