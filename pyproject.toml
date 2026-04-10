@@ -11,6 +11,8 @@ authors = [
 ]
 dependencies = [
     "typer",
+    "PyGObject",
+    "pycairo",
 ]
 requires-python = ">=3.14"
 
