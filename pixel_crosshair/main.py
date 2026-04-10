@@ -2,8 +2,6 @@ import importlib.metadata as meta
 
 import typer
 
-from .disable import app as disable
-from .enable import app as enable
 from .run import app as run
 
 NAME = 'wayland-pixel-crosshair'
@@ -12,7 +10,7 @@ NAME = 'wayland-pixel-crosshair'
 app = typer.Typer(
     name=NAME,
     no_args_is_help=True,
-    help='a video restoration and processing app',
+    help='A pixel crosshair overlay tool for Wayland',
 )
 
 
@@ -21,6 +19,4 @@ def version() -> None:
     print(f'v{meta.version(NAME)}')
 
 
-app.add_typer(enable)
-app.add_typer(disable)
 app.add_typer(run)
