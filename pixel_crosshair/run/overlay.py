@@ -39,8 +39,11 @@ def overlay(rgba: RGBA) -> None:
         # Visuals: Transparent background
         css_provider = Gtk.CssProvider()
         css_provider.load_from_data(b'window { background: none; }')
-        if (display := Gdk.Display.get_default()) is not None:
-            Gtk.StyleContext.add_provider_for_display(display, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+        Gtk.StyleContext.add_provider_for_display(
+            win.get_display(),
+            css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_USER,
+        )
 
         # Draw the pixels
         def draw_func(
