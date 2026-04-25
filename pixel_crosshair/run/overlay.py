@@ -18,8 +18,8 @@ def overlay(rgba: RGBA) -> None:
 
     # MUST load after CDLL("libgtk4-layer-shell.so") pre-loading
     # should load after gi.require_version pre-checking
-    from gi.repository import Gdk, Gtk  # noqa
-    from gi.repository import Gtk4LayerShell as LayerShell  # noqa
+    from gi.repository import Gdk, Gtk  # type: ignore # noqa
+    from gi.repository import Gtk4LayerShell as LayerShell  # type: ignore # noqa
 
     def on_activate(app: Gtk.Application) -> None:
         win = Gtk.ApplicationWindow(application=app)
