@@ -14,7 +14,7 @@ dependencies = [
     "PyGObject",
     "pycairo",
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.14.4"
 
 [project.urls]
 Homepage = "https://github.com/ibrewcoffeeonthemoon/wayland-pixel-crosshair"
