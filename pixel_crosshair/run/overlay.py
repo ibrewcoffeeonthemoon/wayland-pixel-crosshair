@@ -33,6 +33,9 @@ def overlay(rgba: RGBA) -> None:
         # Set the Layer to OVERLAY
         LayerShell.set_layer(win, LayerShell.Layer.OVERLAY)
 
+        # Tell the compositor this surface should NOT react to exclusive zones (fix bar offset bug)
+        LayerShell.set_exclusive_zone(win, -1)
+
         # Make it click-through (no keyboard/mouse focus)
         LayerShell.set_keyboard_mode(win, LayerShell.KeyboardMode.NONE)
 
@@ -53,7 +56,7 @@ def overlay(rgba: RGBA) -> None:
             height: float
         ) -> None:
             # calibrate the center using https://centerofmyscreen.com/
-            cr.arc(width/2, height/2 + 20, 2, 0, 2 * 3.14159)
+            cr.arc(width/2, height/2, 2, 0, 2 * 3.14159)
             cr.set_source_rgba(*rgba)
             cr.fill()
         draw_area = Gtk.DrawingArea()
@@ -62,7 +65,7 @@ def overlay(rgba: RGBA) -> None:
 
         # Size & Position
         # Layer shell centers by default if no anchors are set
-        win.set_default_size(4, 50)
+        win.set_default_size(4, 4)
         win.present()
 
         # CRITICAL: Force mouse passthrough for the entire screen. This must happen after win.present()
