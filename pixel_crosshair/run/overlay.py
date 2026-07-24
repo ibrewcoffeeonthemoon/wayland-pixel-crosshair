@@ -53,7 +53,7 @@ def overlay(rgba: RGBA) -> None:
             height: float
         ) -> None:
             # calibrate the center using https://centerofmyscreen.com/
-            cr.arc(width/2, height/2 - 14, 2, 0, 2 * 3.14159)
+            cr.arc(width/2, height/2 + 20, 2, 0, 2 * 3.14159)
             cr.set_source_rgba(*rgba)
             cr.fill()
         draw_area = Gtk.DrawingArea()
@@ -62,7 +62,7 @@ def overlay(rgba: RGBA) -> None:
 
         # Size & Position
         # Layer shell centers by default if no anchors are set
-        win.set_default_size(4, 40)
+        win.set_default_size(4, 50)
         win.present()
 
         # CRITICAL: Force mouse passthrough for the entire screen. This must happen after win.present()
